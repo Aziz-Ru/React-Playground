@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .day-text {
+    @apply text-gray-600 hover:text-gray-400;
+  }
+  .night-text {
+    @apply dark:text-gray-400 dark:hover:text-gray-600;
+  }
+  .dropDown-bg {
+    @apply bg-gray-200 dark:bg-gray-600
+  }
+}
