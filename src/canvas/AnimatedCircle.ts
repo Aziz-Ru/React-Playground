@@ -5,10 +5,12 @@ export interface CircleConfig {
   dy: number;
   radius: number;
   baseRadius?: number;
-  color?: string;
+  color: string;
 }
 
 export class AnimatedCircle {
+  private maxRadius = 40;
+  private minRadius = 10;
   x: number;
   y: number;
   dx: number;
@@ -25,7 +27,7 @@ export class AnimatedCircle {
     this.radius = config.radius;
     this.ctx = ctx;
     this.baseRadius = config.baseRadius || config.radius;
-    this.color = config.color || "#000000";
+    this.color = config.color;
   }
 
   draw() {
@@ -46,15 +48,16 @@ export class AnimatedCircle {
 
     this.y += this.dy;
     this.x += this.dx;
-
-    if (
-      Math.abs(this.x - mouseX) < 50 &&
-      Math.abs(this.y - mouseY) < 50 &&
-      this.radius < 100
-    ) {
-      this.radius += 1;
-    } else if (this.radius > 5) {
-      this.radius -= 1;
+    if (mouseX != 0 && mouseY != 0) {
+      if (
+        Math.abs(this.x - mouseX) < 50 &&
+        Math.abs(this.y - mouseY) < 50 &&
+        this.radius < this.maxRadius
+      ) {
+        this.radius += 1;
+      } else if (this.radius > this.minRadius) {
+        this.radius -= 1;
+      }
     }
   }
 }

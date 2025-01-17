@@ -10,10 +10,20 @@ const AllDesgin = () => {
     if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
     const ctx = canvas.getContext("2d");
     if (ctx) {
       setCtx(ctx);
     }
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useCircle(ctx);

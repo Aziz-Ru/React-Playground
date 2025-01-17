@@ -5,18 +5,32 @@ const useCircle = (ctx: CanvasRenderingContext2D | null) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const circlesRef = useRef<AnimatedCircle[]>([]);
   const animationRef = useRef<number | null>(null);
+  const colorArray = [
+    "#a88132",
+    "#a88132",
+    "#00ff00",
+    "#4411aa",
+    "#ff1100",
+    "#a83292",
+    "#a83292",
+  ];
   useEffect(() => {
     if (ctx == null) return;
 
     if (circlesRef.current.length == 0) {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 200; i++) {
+        const random = Math.floor(Math.random() * colorArray.length);
+
+        console.log();
         const config: CircleConfig = {
           x: Math.random() * innerWidth,
           y: Math.random() * innerHeight,
           dx: (Math.random() - 0.5) * 2,
           dy: (Math.random() - 0.5) * 2,
-          radius: 5,
+          radius: 10,
+          color: colorArray[random],
         };
+
         circlesRef.current.push(new AnimatedCircle(config, ctx));
       }
     }
