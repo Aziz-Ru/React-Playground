@@ -1,36 +1,22 @@
-import React, { useEffect } from "react";
-import { runAnimatedCircle } from "./AnimatedCircle";
+import React, { useEffect, useState } from "react";
+import useCircle from "./useCircle";
 
 const AllDesgin = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
-
-  const draw = (ctx: CanvasRenderingContext2D) => {
-    // Rectangle(ctx);
-    // Circle(ctx, 200, 100, 50);
-    // for (let i = 0; i < 10; i++) {
-    //   AnimatedCircle(ctx);
-    // }
-    // AnimatedCircle(ctx);
-    
-    runAnimatedCircle(ctx);
-
-    // for (let i = 0; i < 100; i++) {
-    //   const x = Math.random() * window.innerWidth;
-    //   const y = Math.random() * window.innerHeight;
-    //   Circle(ctx, x, y, 50);
-    // }
-    // Triangel(ctx);
-  };
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const ctx = canvasRef.current.getContext("2d");
-    draw(ctx!);
-    return () => ctx?.clearRect(0, 0, canvas.width, canvas.height);
-  });
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      setCtx(ctx);
+    }
+  }, []);
+
+  useCircle(ctx);
 
   return (
     <div>
